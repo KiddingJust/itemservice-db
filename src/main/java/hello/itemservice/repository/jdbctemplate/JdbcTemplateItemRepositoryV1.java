@@ -4,6 +4,7 @@ import hello.itemservice.domain.Item;
 import hello.itemservice.repository.ItemRepository;
 import hello.itemservice.repository.ItemSearchCond;
 import hello.itemservice.repository.ItemUpdateDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,6 +22,7 @@ import java.util.Optional;
 /**
  * JdbcTEmplate 구현
  */
+@Slf4j
 public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
     private final JdbcTemplate template;
@@ -114,9 +116,9 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
             sql += " price <= ?";
             param.add(maxPrice);
         }
-        //log.info("sql={}", sql);
+        log.info("sql={}", sql);
 
         //queryForObject는 1개만 가져올 때, query는 List로 가져올 때
-        return template.query(sql, itemRowMapper());
+        return template.query(sql, itemRowMapper(), param.toArray());
     }
 }
