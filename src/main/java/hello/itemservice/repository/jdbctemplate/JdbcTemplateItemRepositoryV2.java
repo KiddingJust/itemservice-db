@@ -72,7 +72,7 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
 
     @Override
     public Optional<Item> findById(Long id) {
-        String sql = "select id, item_name, price, quantity where id = :id";
+        String sql = "select id, item_name, price, quantity from item where id = :id";
         try {
             //파라미터는 맵으로도 넘길 수 있음.
             Map<String, Object> param = Map.of("id", id);
